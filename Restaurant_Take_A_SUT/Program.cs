@@ -11,6 +11,19 @@
             }
         }
 
+         if (User.LogIn())
+         {
+            // Kör programmet här
+         }
+
+
+
+
+
+
+
+
+      }
         public static void BuildMenu()
         {
             new Food("Caprese Salad", 80, "Insalata", true);
