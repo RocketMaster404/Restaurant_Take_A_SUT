@@ -23,7 +23,6 @@ namespace Restaurant_Take_A_SUT
                 switch (choice)
                 {
                     case 1:
-
                         ShowTableMap();
                         break;
                     case 2:
@@ -41,9 +40,31 @@ namespace Restaurant_Take_A_SUT
 
         public static void ShowTableMap()
         {
-            Console.WriteLine("Här kommer bordskartan vara.");
-            Console.ReadKey();
-            PrintMenu();
+            Console.WriteLine("\t======Bordskarta======");
+            Console.WriteLine("1) Visa beställningar.");
+            Console.WriteLine("2) Lägg till beställningar.");
+            Console.WriteLine("3) Skriv ut nota.");
+            Console.WriteLine("4) Återgå till huvudmeny.");
+            string input = Console.ReadLine();
+            int choice;
+            if (int.TryParse(input, out choice))
+            {
+                switch (choice)
+                {
+                    case 1:
+                        //Beställningar;
+                        break;
+                    case 2:
+                        //Visa beställningar;
+                        break;
+                    case 3:
+                        //Print nota;
+                        break;
+                    case 4:
+                        PrintMenu();
+                        break;
+                }
+            }
         }
         public static void ShowFoodMenu()
         {
@@ -92,17 +113,17 @@ namespace Restaurant_Take_A_SUT
                 }
             }
         }
-        public static void ShowCustomerOrder()
-        {
-            Console.WriteLine("\n====== Kundens beställning ======");
-            foreach (var food in Food.CustomerFoodOrder)
-            {
-                Console.WriteLine(food);
-            }
+        //public static void ShowCustomerOrder()
+        //{
+        //    Console.WriteLine("\n====== Kundens beställning ======");
+        //    foreach (var food in Food.CustomerFoodOrder)
+        //    {
+        //        Console.WriteLine(food);
+        //    }
 
-            int total = Food.CustomerFoodOrder.Sum(f => f.Price);
-            Console.WriteLine($"\nTotalpris: {total} kr");
-        }
+        //    int total = Food.CustomerFoodOrder.Sum(f => f.Price);
+        //    Console.WriteLine($"\nTotalpris: {total} kr");
+        //}
         public static void LogOut()
         {
             Environment.Exit(0);
