@@ -14,6 +14,8 @@ namespace Restaurant_Take_A_SUT
         public bool ContainAlc { get; set; }
 
         public static List<Drinks> DrinkList = new List<Drinks>();
+        public static List<Drinks> CustomerDrinkOrder = new List<Drinks>();
+
         public Drinks(string name, int price, string brand, string originregion, bool containalc) : base(name, price)
         {
             Brand = brand;
@@ -30,14 +32,6 @@ namespace Restaurant_Take_A_SUT
         {
             string alcoholText = ContainAlc ? "Innehåller alkohol" : "Alkoholfri";
             return $"{Name} ({Brand}) - {Price} kr, Från {OriginRegion}, {alcoholText}";
-        }
-        public static void ShowDrinkMenu()
-        {
-            Console.WriteLine($"\t======Dryckesmeny======");
-            foreach (var drink in DrinkList)
-            {
-                Console.WriteLine(drink);
-            }
         }
     }
 }
