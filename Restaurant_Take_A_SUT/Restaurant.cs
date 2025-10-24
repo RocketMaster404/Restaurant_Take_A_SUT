@@ -44,6 +44,7 @@ namespace Restaurant_Take_A_SUT
             if (input == Tables[i].TableNumber)
             {
                Tables[i].ShowOrders();
+                    Console.ReadKey();
             }
          }
       }

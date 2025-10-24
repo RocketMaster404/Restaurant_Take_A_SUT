@@ -4,26 +4,17 @@
     {
         static void Main(string[] args)
         {
+            var restaurant = new Restaurant(10);
+            BuildMenu();
             if (User.LogIn())
             {
-                BuildMenu();
-                Inteface.PrintMenu();
+                while (true)
+                {
+                    Inteface.PrintMenu(restaurant);
+                    Console.ReadKey();
+                }
             }
         }
-
-         if (User.LogIn())
-         {
-            // Kör programmet här
-         }
-
-
-
-
-
-
-
-
-      }
         public static void BuildMenu()
         {
             new Food("Caprese Salad", 80, "Insalata", true);
