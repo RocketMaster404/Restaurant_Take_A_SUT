@@ -8,5 +8,6 @@ namespace Restaurant_Take_A_SUT
 {
     internal class Food
     {
+    
     }
 }
