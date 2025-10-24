@@ -4,9 +4,11 @@
     {
         static void Main(string[] args)
         {
-            BuildMenu();
-            Inteface.PrintMenu();
-
+            if (User.LogIn())
+            {
+                BuildMenu();
+                Inteface.PrintMenu();
+            }
         }
 
         public static void BuildMenu()
@@ -32,13 +34,6 @@
             new Drinks("Acqua Frizzante", 25, "San Benedetto", "Italien", false);
             new Drinks("Cappuccino", 30, "Illy", "Italien", false);
             new Drinks("Espresso", 25, "Lavazza", "Italien", false);
-
-         if (User.LogIn())
-         {
-            // Kör programmet här
-         }
-         
-
         }
     }
 }
