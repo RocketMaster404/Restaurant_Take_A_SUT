@@ -22,6 +22,10 @@ namespace Restaurant_Take_A_SUT
 
             DrinkList.Add(this);
         }
+        public Drinks()
+        {
+
+        }
         public override string ToString()
         {
             string alcoholText = ContainAlc ? "Innehåller alkohol" : "Alkoholfri";
