@@ -4,7 +4,13 @@
     {
         static void Main(string[] args)
         {
-        
+
+         if (User.LogIn())
+         {
+            // Kör programmet här
+         }
+         
+
         }
     }
 }
