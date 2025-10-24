@@ -20,10 +20,17 @@ namespace Restaurant_Take_A_SUT
 
       public void ShowOrders()
       {
-        foreach(MenuItem item in Orders)
+         int sum = 0;
+         Console.WriteLine($"Beställningar för Bord: {TableNumber}");
+
+         for(int i = 0; i < Orders.Count; i++)
          {
-            Console.WriteLine($"{item.Name}: {item.Price} Kr");
+            Console.WriteLine($"{Orders[i].Name}: {Orders[i].Price} Kr");
+            sum += Orders[i].Price;
          }
+
+         Console.WriteLine($"Totalt: {sum} Kr");
+
       }
 
    }
