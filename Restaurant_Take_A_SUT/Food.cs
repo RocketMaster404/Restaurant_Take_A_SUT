@@ -12,6 +12,8 @@ namespace Restaurant_Take_A_SUT
         public bool IsVegitarian { get; set; }
 
         public static List<Food> Foodmenu = new List<Food>();
+        public static List<Food> CustomerFoodOrder = new List<Food>();
+
 
         public Food(string name, int price, string category, bool isvegitarian) : base(name, price)
         {
@@ -28,14 +30,6 @@ namespace Restaurant_Take_A_SUT
         {
             string vegText = IsVegitarian ? "Vegetarisk" : "Ej vegetarisk";
             return $"{Name} ({Category}) - {Price} kr, {vegText}";
-        }
-        public static void ShowFoodMenu()
-        {
-            Console.WriteLine("\t======Matmeny======");
-            foreach (var food in Foodmenu)
-            {
-                Console.WriteLine(food);
-            }
         }
     }
 }
