@@ -8,15 +8,22 @@ namespace Restaurant_Take_A_SUT
 {
    internal class Table
    {
-      public List<MenuItem> Orders = new List<MenuItem>();
+      public List<MenuItem> Orders { get; set; }
       public int TableNumber { get; set; }
 
 
-      public Table(int tableNumber,List<MenuItem> orders)
+      public Table(int tableNumber)
       {
          TableNumber = tableNumber;
-         Orders = orders;
-          
+         Orders = new List<MenuItem>();
+      }
+
+      public void ShowOrders()
+      {
+        foreach(MenuItem item in Orders)
+         {
+            Console.WriteLine($"{item.Name}: {item.Price} Kr");
+         }
       }
 
    }
