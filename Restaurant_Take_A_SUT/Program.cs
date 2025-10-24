@@ -1,15 +1,10 @@
 ﻿namespace Restaurant_Take_A_SUT
 {
-   internal class Program
-   {
-      static void Main(string[] args)
-      {
-         
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
 
-
-            Drinks.ShowDrinkMenu();
-            Console.WriteLine("");
-            Console.ReadKey();
         }
     }
 }
