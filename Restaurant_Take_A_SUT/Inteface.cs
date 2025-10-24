@@ -32,7 +32,7 @@ namespace Restaurant_Take_A_SUT
                         ShowDrinkMenu();
                         break;
                     case 4:
-                        ;
+                        LogOut();
                         break;
                 }
             }
@@ -117,9 +117,9 @@ namespace Restaurant_Take_A_SUT
                 }
             }
         }
-        //public static void LogOut()
-        //{
-        //    Environment.Exit(0);
-        //}
+        public static void LogOut()
+        {
+            Environment.Exit(0);
+        }
     }
 }
