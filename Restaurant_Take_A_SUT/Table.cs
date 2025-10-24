@@ -9,6 +9,7 @@ namespace Restaurant_Take_A_SUT
    internal class Table
    {
       public List<MenuItem> Orders { get; set; }
+      
       public int TableNumber { get; set; }
 
 
@@ -32,6 +33,8 @@ namespace Restaurant_Take_A_SUT
          Console.WriteLine($"Totalt: {sum} Kr");
 
       }
+
+      
 
    }
 }
