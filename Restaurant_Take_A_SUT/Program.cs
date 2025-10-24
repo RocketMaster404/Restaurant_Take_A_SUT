@@ -7,6 +7,9 @@
          
 
 
-      }
-   }
+            Drinks.ShowDrinkMenu();
+            Console.WriteLine("");
+            Console.ReadKey();
+        }
+    }
 }
