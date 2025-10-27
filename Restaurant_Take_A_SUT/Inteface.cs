@@ -68,6 +68,82 @@ namespace Restaurant_Take_A_SUT
                case 4:
                   PrintMenu(restaurant);
                   break;
+                switch (choice)
+                {
+                    case 1:
+                        DrawTableMap(restaurant);
+                        ShowTableMap(restaurant);
+                        break;
+                    case 2:
+                        ShowFoodMenu();
+                        break;
+                    case 3:
+                        ShowDrinkMenu();
+                        break;
+                    case 4:
+                        LogOut();
+                        break;
+                }
+            }
+        }
+        public static void DrawTableMap(Restaurant restaurant)
+        {
+            Console.Clear();
+            Console.WriteLine("===== Bordskarta =====\n");
+            int cellWidth = 5;
+            foreach (var table in restaurant.Tables)
+            {
+                Console.ForegroundColor = table.Orders.Count == 0 ? ConsoleColor.Green : ConsoleColor.Red;
+                Console.Write("╔" + new string('═', cellWidth) + "╗ ");
+            }
+            Console.WriteLine();
+            foreach (var table in restaurant.Tables)
+            {
+                Console.ForegroundColor = table.Orders.Count == 0 ? ConsoleColor.Green : ConsoleColor.Red;
+
+                string number = table.TableNumber.ToString();
+                int padding = (cellWidth - number.Length) / 2;
+                string leftPad = new string(' ', padding);
+                string rightPad = new string(' ', cellWidth - number.Length - padding);
+
+                Console.Write($"║{leftPad}{number}{rightPad}║ ");
+            }
+            Console.WriteLine();
+            foreach (var table in restaurant.Tables)
+            {
+                Console.ForegroundColor = table.Orders.Count == 0 ? ConsoleColor.Green : ConsoleColor.Red;
+                Console.Write("╚" + new string('═', cellWidth) + "╝ ");
+            }
+            Console.WriteLine("\n");
+            Console.ResetColor();
+        }
+
+        public static void ShowTableMap(Restaurant restaurant)
+        {
+            Console.WriteLine("\t======Bordskarta======");
+            Console.WriteLine("1) Visa beställningar.");
+            Console.WriteLine("2) Lägg till beställningar.");
+            Console.WriteLine("3) Ta bort en produkt från bordet.");
+            Console.WriteLine("4) Återgå till huvudmeny.");
+            string input = Console.ReadLine();
+            int choice;
+            if (int.TryParse(input, out choice))
+            {
+                switch (choice)
+                {
+                    case 1:
+                        restaurant.ShowSpecificTable();
+                        break;
+                    case 2:
+                        BothMenus(restaurant);
+                        break;
+                    case 3:
+                        RemoveOrderMenu(restaurant);
+                        break;
+                    case 4:
+                        PrintMenu(restaurant);
+                        break;
+                }
             }
          }
       }
@@ -161,6 +237,40 @@ namespace Restaurant_Take_A_SUT
             string input = Console.ReadLine();
             int choice;
             if (int.TryParse(input, out choice))
+        }
+        public static void RemoveOrderMenu(Restaurant restaurant)
+        {
+            Console.WriteLine("Ange bordets nummer: ");
+            if (!int.TryParse(Console.ReadLine(), out int tableNumber))
+            {
+                Console.WriteLine("Felaktigt bordsnummer.");
+            }
+            var table = restaurant.GetTable(tableNumber);
+            if (table == null || table.Orders.Count == 0)
+            {
+                Console.WriteLine("Finns inga beställningar på bordet.");
+                Console.ReadKey();
+            }
+            Console.WriteLine("\nBeställningar på bordet: ");
+            for (int i = 0; i < table.Orders.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}.{table.Orders[i].Name}");
+            }
+            Console.WriteLine("Välj numret på produkten som ska tas bort: ");
+            if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > table.Orders.Count)
+            {
+                Console.WriteLine("Felaktigt val.");
+                Console.ReadKey();
+            }
+            var removedItem = table.Orders[choice - 1];
+            table.Orders.RemoveAt(choice - 1);
+            Console.WriteLine($"{removedItem.Name} tagits bort från bord {tableNumber}.");
+            Console.ReadKey();
+        }
+        public static void BothMenus(Restaurant restaurant)
+        {
+            bool running = true;
+            while (running)
             {
                switch (choice)
                {

@@ -11,9 +11,7 @@
                     Inteface.PrintMenu(restaurant);
                     Console.ReadKey();
                 }
-            //if (User.LogIn())
-            //{
-            //}
+            }
         }
         public static void BuildMenu()
         {
