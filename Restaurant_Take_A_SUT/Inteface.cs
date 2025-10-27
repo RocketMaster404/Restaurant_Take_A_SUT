@@ -111,17 +111,27 @@ namespace Restaurant_Take_A_SUT
         public static void ShowFoodMenu()
         {
             Console.WriteLine("\t======Matmeny======");
+            Console.WriteLine($"{"Nr",-3} {"Namn",-25} {"Pris",-8} {"Kategori",-20} {"Vegansk",-15}");
+            Console.WriteLine(new string('-', 80));
+
+
             for (int i = 0; i < Food.Foodmenu.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. {Food.Foodmenu[i]}");
+                var food = Food.Foodmenu[i];
+                Console.WriteLine($"{i + 1,-3} {food.Name,-25} {food.Price + " kr",-8} {food.Category,-20} {food.IsVegitarian,-15}");
             }
         }
         public static void ShowDrinkMenu()
         {
-            Console.WriteLine($"\t======Dryckesmeny======");
+            Console.WriteLine("\t======Dryckesmeny======");
+            Console.WriteLine($"{"Nr",-3} {"Namn",-25} {"Pris",-8} {"Märke",-20} {"Region",-15}");
+            Console.WriteLine(new string('-', 80));
+
+
             for (int i = 0; i < Drinks.DrinkList.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. {Drinks.DrinkList[i]}");
+                var drink = Drinks.DrinkList[i];
+                Console.WriteLine($"{i + 1,-3} {drink.Name,-25} {drink.Price+" kr",-8} {drink.Brand,-20} {drink.OriginRegion,-15}");
             }
         }
         public static void OrderFood(Restaurant restaurant)

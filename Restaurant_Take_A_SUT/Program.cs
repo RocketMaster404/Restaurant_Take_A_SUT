@@ -23,8 +23,8 @@
             new Food("Pepperoni", 135, "Pizza", false);
             new Food("Spaghetti Carbonara", 145, "Pasta", false);
             new Food("Lasagne al Forno", 150, "Pasta", false);
-            new Food("Risotto ai Funghi", 140, "Risotto", true);
             new Food("Gnocchi al Pesto", 130, "Pasta", true);
+            new Food("Risotto ai Funghi", 140, "Risotto", true);
             new Food("Panna Cotta", 90, "Dolce", true);
             new Food("Tiramisu", 95, "Dolce", true);
 
