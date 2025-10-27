@@ -42,7 +42,7 @@ namespace Restaurant_Take_A_SUT
         public static void DrawTableMap(Restaurant restaurant)
         {
             Console.Clear();
-            Console.WriteLine("===== Bordskarta =====\n");
+            Console.WriteLine("\t\t\t===== Bordskarta =====\n");
             int cellWidth = 5;
             foreach (var table in restaurant.Tables)
             {
