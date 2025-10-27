@@ -23,6 +23,7 @@ namespace Restaurant_Take_A_SUT
                 switch (choice)
                 {
                     case 1:
+                        DrawTableMap(restaurant);
                         ShowTableMap(restaurant);
                         break;
                     case 2:
@@ -36,6 +37,37 @@ namespace Restaurant_Take_A_SUT
                         break;
                 }
             }
+        }
+        public static void DrawTableMap(Restaurant restaurant)
+        {
+            Console.Clear();
+            Console.WriteLine("===== Bordskarta =====\n");
+            int cellWidth = 5;
+            foreach (var table in restaurant.Tables)
+            {
+                Console.ForegroundColor = table.Orders.Count == 0 ? ConsoleColor.Green : ConsoleColor.Red;
+                Console.Write("╔" + new string('═', cellWidth) + "╗ ");
+            }
+            Console.WriteLine();
+            foreach (var table in restaurant.Tables)
+            {
+                Console.ForegroundColor = table.Orders.Count == 0 ? ConsoleColor.Green : ConsoleColor.Red;
+
+                string number = table.TableNumber.ToString();
+                int padding = (cellWidth - number.Length) / 2;
+                string leftPad = new string(' ', padding);
+                string rightPad = new string(' ', cellWidth - number.Length - padding);
+
+                Console.Write($"║{leftPad}{number}{rightPad}║ ");
+            }
+            Console.WriteLine();
+            foreach (var table in restaurant.Tables)
+            {
+                Console.ForegroundColor = table.Orders.Count == 0 ? ConsoleColor.Green : ConsoleColor.Red;
+                Console.Write("╚" + new string('═', cellWidth) + "╝ ");
+            }
+            Console.WriteLine("\n");
+            Console.ResetColor();
         }
 
         public static void ShowTableMap(Restaurant restaurant)
