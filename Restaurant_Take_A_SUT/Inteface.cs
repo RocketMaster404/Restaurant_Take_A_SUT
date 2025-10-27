@@ -16,8 +16,9 @@ namespace Restaurant_Take_A_SUT
             Console.WriteLine("1) Bordskarta.");
             Console.WriteLine("2) Visa matmeny.");
             Console.WriteLine("3) Visa dryckesmeny.");
-            Console.WriteLine("4) Logga ut.");
-            Console.WriteLine("5. Betala");
+            Console.WriteLine("4. Betala");
+            Console.WriteLine("5) Dagsavslut.");
+            Console.WriteLine("6) Logga ut.");
             string input = Console.ReadLine();
             int choice;
             if (int.TryParse(input, out choice))
@@ -35,10 +36,13 @@ namespace Restaurant_Take_A_SUT
                         ShowDrinkMenu();
                         break;
                     case 4:
-                        LogOut();
+                        Cashier.Pay(restaurant);
                         break;
                     case 5:
-                        Cashier.Pay(restaurant);
+                        Cashier.Z_Rapport();
+                        break;
+                    case 6:
+                        LogOut();
                         break;
                 }
             }
