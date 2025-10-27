@@ -7,67 +7,21 @@ using System.Threading.Tasks;
 
 namespace Restaurant_Take_A_SUT
 {
-   internal class Inteface
-   {
-      public static void PrintMenu(Restaurant restaurant)
-      {
-         Console.Clear();
-         Console.WriteLine("\t=====Huvudmeny=====");
-         Console.WriteLine("1) Bordskarta.");
-         Console.WriteLine("2) Visa matmeny.");
-         Console.WriteLine("3) Visa dryckesmeny.");
-         Console.WriteLine("4) Logga ut.");
-         Console.WriteLine("5. Betala");
-         string input = Console.ReadLine();
-         int choice;
-         if (int.TryParse(input, out choice))
-         {
-            switch (choice)
+    internal class Inteface
+    {
+        public static void PrintMenu(Restaurant restaurant)
+        {
+            Console.Clear();
+            Console.WriteLine("\t=====Huvudmeny=====");
+            Console.WriteLine("1) Bordskarta.");
+            Console.WriteLine("2) Visa matmeny.");
+            Console.WriteLine("3) Visa dryckesmeny.");
+            Console.WriteLine("4) Logga ut.");
+            Console.WriteLine("5. Betala");
+            string input = Console.ReadLine();
+            int choice;
+            if (int.TryParse(input, out choice))
             {
-               case 1:
-                  ShowTableMap(restaurant);
-                  break;
-               case 2:
-                  ShowFoodMenu();
-                  break;
-               case 3:
-                  ShowDrinkMenu();
-                  break;
-               case 4:
-                  LogOut();
-                  break;
-               case 5:
-                  Cashier.Pay(restaurant);
-                  break;
-            }
-         }
-      }
-
-      public static void ShowTableMap(Restaurant restaurant)
-      {
-         Console.WriteLine("\t======Bordskarta======");
-         Console.WriteLine("1) Visa beställningar.");
-         Console.WriteLine("2) Lägg till beställningar.");
-         Console.WriteLine("3) Skriv ut nota.");
-         Console.WriteLine("4) Återgå till huvudmeny.");
-         string input = Console.ReadLine();
-         int choice;
-         if (int.TryParse(input, out choice))
-         {
-            switch (choice)
-            {
-               case 1:
-                  restaurant.ShowSpecificTable();
-                  break;
-               case 2:
-                  BothMenus(restaurant);
-                  break;
-               case 3:
-                  //Print nota;
-                  break;
-               case 4:
-                  PrintMenu(restaurant);
-                  break;
                 switch (choice)
                 {
                     case 1:
@@ -82,6 +36,9 @@ namespace Restaurant_Take_A_SUT
                         break;
                     case 4:
                         LogOut();
+                        break;
+                    case 5:
+                        Cashier.Pay(restaurant);
                         break;
                 }
             }
@@ -145,98 +102,85 @@ namespace Restaurant_Take_A_SUT
                         break;
                 }
             }
-         }
-      }
-      public static void ShowFoodMenu()
-      {
-         Console.WriteLine("\t======Matmeny======");
-         for (int i = 0; i < Food.Foodmenu.Count; i++)
-         {
-            Console.WriteLine($"{i + 1}. {Food.Foodmenu[i]}");
-         }
-      }
-      public static void ShowDrinkMenu()
-      {
-         Console.WriteLine($"\t======Dryckesmeny======");
-         for (int i = 0; i < Drinks.DrinkList.Count; i++)
-         {
-            Console.WriteLine($"{i + 1}. {Drinks.DrinkList[i]}");
-         }
-      }
-      public static void OrderFood(Restaurant restaurant)
-      {
-         Console.Write("Ange bordsnummer: ");
-         if (!int.TryParse(Console.ReadLine(), out int tableNumber))
-         {
-            Console.WriteLine("Felaktigt bordnummer.");
-            return;
-         }
-         Console.WriteLine("\nSkriv numret på maträtten för att lägga till i beställningen (0 för att avsluta):");
-         while (true)
-         {
-            Console.Write("Val: ");
-            if (!int.TryParse(Console.ReadLine(), out int choice))
-            {
-               Console.WriteLine("Felaktig inmatning, försök igen.");
-               continue;
-            }
-            if (choice == 0) break;
+        }
 
-            if (choice > 0 && choice <= Food.Foodmenu.Count)
+        public static void ShowFoodMenu()
+        {
+            Console.WriteLine("\t======Matmeny======");
+            for (int i = 0; i < Food.Foodmenu.Count; i++)
             {
-               var selectedFood = Food.Foodmenu[choice - 1];
-               restaurant.AddOrderToTable(tableNumber, selectedFood);
-               Console.WriteLine($"Tillagd på bord {tableNumber}: {selectedFood.Name}");
+                Console.WriteLine($"{i + 1}. {Food.Foodmenu[i]}");
             }
-            else
+        }
+        public static void ShowDrinkMenu()
+        {
+            Console.WriteLine($"\t======Dryckesmeny======");
+            for (int i = 0; i < Drinks.DrinkList.Count; i++)
             {
-               Console.WriteLine("Fel: valet finns inte i menyn.");
+                Console.WriteLine($"{i + 1}. {Drinks.DrinkList[i]}");
             }
-         }
-      }
-      public static void OrderDrinks(Restaurant restaurant)
-      {
-         Console.Write("Ange bordsnummer: ");
-         if (!int.TryParse(Console.ReadLine(), out int tableNumber))
-         {
-            Console.WriteLine("Felaktigt bordnummer.");
-            return;
-         }
-         Console.WriteLine("\nSkriv numret på drycken för att lägga till i beställningen (0 för att avsluta):");
-         while (true)
-         {
-            Console.Write("Val: ");
-            if (!int.TryParse(Console.ReadLine(), out int choice))
+        }
+        public static void OrderFood(Restaurant restaurant)
+        {
+            Console.Write("Ange bordsnummer: ");
+            if (!int.TryParse(Console.ReadLine(), out int tableNumber))
             {
-               Console.WriteLine("Felaktig inmatning, försök igen.");
-               continue;
+                Console.WriteLine("Felaktigt bordnummer.");
+                return;
             }
-            if (choice == 0) break;
+            Console.WriteLine("\nSkriv numret på maträtten för att lägga till i beställningen (0 för att avsluta):");
+            while (true)
+            {
+                Console.Write("Val: ");
+                if (!int.TryParse(Console.ReadLine(), out int choice))
+                {
+                    Console.WriteLine("Felaktig inmatning, försök igen.");
+                    continue;
+                }
+                if (choice == 0) break;
 
-            if (choice > 0 && choice <= Drinks.DrinkList.Count)
-            {
-               var selectedDrink = Drinks.DrinkList[choice - 1];
-               restaurant.AddOrderToTable(tableNumber, selectedDrink);
-               Console.WriteLine($"Tillagd på bord {tableNumber}: {selectedDrink.Name}");
+                if (choice > 0 && choice <= Food.Foodmenu.Count)
+                {
+                    var selectedFood = Food.Foodmenu[choice - 1];
+                    restaurant.AddOrderToTable(tableNumber, selectedFood);
+                    Console.WriteLine($"Tillagd på bord {tableNumber}: {selectedFood.Name}");
+                }
+                else
+                {
+                    Console.WriteLine("Fel: valet finns inte i menyn.");
+                }
             }
-            else
+        }
+        public static void OrderDrinks(Restaurant restaurant)
+        {
+            Console.Write("Ange bordsnummer: ");
+            if (!int.TryParse(Console.ReadLine(), out int tableNumber))
             {
-               Console.WriteLine("Fel: valet finns inte i menyn.");
+                Console.WriteLine("Felaktigt bordnummer.");
+                return;
             }
-         }
-      }
-      public static void BothMenus(Restaurant restaurant)
-      {
-         bool running = true;
-         while (running)
-         {
-            Console.Clear();
-            Console.WriteLine("1) Mat.");
-            Console.WriteLine("2) Dryck.");
-            Console.WriteLine("3) Återgå.");
-            string input = Console.ReadLine();
-            int choice;
-            if (int.TryParse(input, out choice))
+            Console.WriteLine("\nSkriv numret på drycken för att lägga till i beställningen (0 för att avsluta):");
+            while (true)
+            {
+                Console.Write("Val: ");
+                if (!int.TryParse(Console.ReadLine(), out int choice))
+                {
+                    Console.WriteLine("Felaktig inmatning, försök igen.");
+                    continue;
+                }
+                if (choice == 0) break;
+
+                if (choice > 0 && choice <= Drinks.DrinkList.Count)
+                {
+                    var selectedDrink = Drinks.DrinkList[choice - 1];
+                    restaurant.AddOrderToTable(tableNumber, selectedDrink);
+                    Console.WriteLine($"Tillagd på bord {tableNumber}: {selectedDrink.Name}");
+                }
+                else
+                {
+                    Console.WriteLine("Fel: valet finns inte i menyn.");
+                }
+            }
         }
         public static void RemoveOrderMenu(Restaurant restaurant)
         {
@@ -244,6 +188,8 @@ namespace Restaurant_Take_A_SUT
             if (!int.TryParse(Console.ReadLine(), out int tableNumber))
             {
                 Console.WriteLine("Felaktigt bordsnummer.");
+                Console.ReadKey();
+                return;
             }
             var table = restaurant.GetTable(tableNumber);
             if (table == null || table.Orders.Count == 0)
@@ -272,26 +218,41 @@ namespace Restaurant_Take_A_SUT
             bool running = true;
             while (running)
             {
-               switch (choice)
-               {
-                  case 1:
-                     ShowFoodMenu();
-                     OrderFood(restaurant);
-                     break;
-                  case 2:
-                     ShowDrinkMenu();
-                     OrderDrinks(restaurant);
-                     break;
-                  case 3:
-                     running = false;
-                     break;
-               }
+                Console.Clear();
+                Console.WriteLine("1) Mat.");
+                Console.WriteLine("2) Dryck.");
+                Console.WriteLine("3) Återgå.");
+                string input = Console.ReadLine();
+                int choice;
+                if (int.TryParse(input, out choice))
+                {
+                    switch (choice)
+                    {
+                        case 1:
+                            ShowFoodMenu();
+                            OrderFood(restaurant);
+                            break;
+                        case 2:
+                            ShowDrinkMenu();
+                            OrderDrinks(restaurant);
+                            break;
+                        case 3:
+                            running = false;
+                            break;
+                    }
+
+                }
+                else
+                {
+                    Console.WriteLine("Felaktig inmatning.");
+                    Console.ReadKey();
+                }
             }
-         }
-      }
-      public static void LogOut()
-      {
-         Environment.Exit(0);
-      }
-   }
+        }
+        public static void LogOut()
+        {
+            Environment.Exit(0);
+        }
+    }
 }
+
