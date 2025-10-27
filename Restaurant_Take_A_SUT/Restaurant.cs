@@ -6,70 +6,87 @@ using System.Threading.Tasks;
 
 namespace Restaurant_Take_A_SUT
 {
-   internal class Restaurant
-   {
+    internal class Restaurant
+    {
 
-      public List<Table> Tables { get; set; }
+        public List<Table> Tables { get; set; }
 
-      public Restaurant(int numberOfTables)
-      {
-         Tables = new List<Table>();
-         for(int i = 1; i <= numberOfTables; i++)
-         {
-            Tables.Add(new Table(i));
-         }
-      }
-      public void ShowAllActiveTables()
-      {
-         foreach (var table in Tables)
-         {
-            if (table.Orders.Count > 0)
+        public Restaurant(int numberOfTables)
+        {
+            Tables = new List<Table>();
+            for (int i = 1; i <= numberOfTables; i++)
             {
-               table.ShowOrders();
+                Tables.Add(new Table(i));
             }
-         }
-      }
-
-      public void ShowSpecificTable()
-      {
-         int input;
-         Console.WriteLine("Ange bord: ");
-         while(!int.TryParse(Console.ReadLine(), out input))
-         {
-            Console.WriteLine("Du måste ange heltal");
-         }
-
-         for(int i = 0; i < Tables.Count;i++)
-         {
-            if (input == Tables[i].TableNumber)
+        }
+        public void ShowAllActiveTables()
+        {
+            foreach (var table in Tables)
             {
-               Tables[i].ShowOrders();
+                if (table.Orders.Count > 0)
+                {
+                    table.ShowOrders();
+                }
+            }
+        }
+
+        public void ShowSpecificTable()
+        {
+            int input;
+            Console.WriteLine("Ange bord: ");
+            while (!int.TryParse(Console.ReadLine(), out input))
+            {
+                Console.WriteLine("Du måste ange heltal");
+            }
+
+            for (int i = 0; i < Tables.Count; i++)
+            {
+                if (input == Tables[i].TableNumber)
+                {
+                    Tables[i].ShowOrders();
                     Console.ReadKey();
+                }
             }
-         }
-      }
+        }
 
-      public void AddOrderToTable(int tableNumber, MenuItem item)
-      {
-         var table = GetTable(tableNumber);
-         if (table != null)
-         {
-            table.Orders.Add(item);
-         }
-      }
-
-      public Table GetTable(int tableNumber)
-      {
-         foreach (Table currentTable in Tables)
-         {
-            if (currentTable.TableNumber == tableNumber)
+        public void AddOrderToTable(int tableNumber, MenuItem item)
+        {
+            var table = GetTable(tableNumber);
+            if (table != null)
             {
-               return currentTable;
+                table.Orders.Add(item);
             }
-         }
+        }
+        public void RemoveOrderFromTable(int tablenumber, string itemName)
+        {
+            var table = GetTable(tablenumber);
+            if (table == null)
+            {
+                Console.WriteLine($"Bord {tablenumber} finns inte.");
+            }
+            MenuItem orderToRemove = null;
+            foreach (var order in table.Orders)
+            {
+                if (string.Equals(order.Name, itemName))
+                {
+                    orderToRemove = order;
+                    break;
+                }
+            }
+        }
 
-         return null; 
-      }
+        public Table GetTable(int tableNumber)
+        {
+            foreach (Table currentTable in Tables)
+            {
+                if (currentTable.TableNumber == tableNumber)
+                {
+                    return currentTable;
+                }
+            }
 
-   }
+            return null;
+        }
+
+    }
 }

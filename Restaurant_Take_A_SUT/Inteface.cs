@@ -43,7 +43,7 @@ namespace Restaurant_Take_A_SUT
             Console.WriteLine("\t======Bordskarta======");
             Console.WriteLine("1) Visa beställningar.");
             Console.WriteLine("2) Lägg till beställningar.");
-            Console.WriteLine("3) Skriv ut nota.");
+            Console.WriteLine("3) Ta bort en produkt från bordet.");
             Console.WriteLine("4) Återgå till huvudmeny.");
             string input = Console.ReadLine();
             int choice;
@@ -58,7 +58,7 @@ namespace Restaurant_Take_A_SUT
                         OrderFood(restaurant);
                         break;
                     case 3:
-                        //Print nota;
+                        RemoveOrderMenu(restaurant);
                         break;
                     case 4:
                         PrintMenu(restaurant);
@@ -116,6 +116,35 @@ namespace Restaurant_Take_A_SUT
                     Console.WriteLine("Fel: valet finns inte i menyn.");
                 }
             }
+        }
+        public static void RemoveOrderMenu(Restaurant restaurant)
+        {
+            Console.WriteLine("Ange bordets nummer: ");
+            if (!int.TryParse(Console.ReadLine(), out int tableNumber))
+            {
+                Console.WriteLine("Felaktigt bordsnummer.");
+            }
+            var table = restaurant.GetTable(tableNumber);
+            if (table == null || table.Orders.Count == 0)
+            {
+                Console.WriteLine("Finns inga beställningar på bordet.");
+                Console.ReadKey();
+            }
+            Console.WriteLine("\nBeställningar på bordet: ");
+            for (int i = 0; i < table.Orders.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}.{table.Orders[i].Name}");
+            }
+            Console.WriteLine("Välj numret på produkten som ska tas bort: ");
+            if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > table.Orders.Count)
+            {
+                Console.WriteLine("Felaktigt val.");
+                Console.ReadKey();
+            }
+            var removedItem = table.Orders[choice - 1];
+            table.Orders.RemoveAt(choice - 1);
+            Console.WriteLine($"{removedItem.Name} tagits bort från bord {tableNumber}.");
+            Console.ReadKey();
         }
         public static void LogOut()
         {
