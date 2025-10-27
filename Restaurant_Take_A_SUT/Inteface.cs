@@ -55,7 +55,7 @@ namespace Restaurant_Take_A_SUT
                         restaurant.ShowSpecificTable();
                         break;
                     case 2:
-                        OrderFood(restaurant);
+                        BothMenus();
                         break;
                     case 3:
                         //Print nota;
@@ -114,6 +114,64 @@ namespace Restaurant_Take_A_SUT
                 else
                 {
                     Console.WriteLine("Fel: valet finns inte i menyn.");
+                }
+            }
+        }
+        public static void OrderDrinks(Restaurant restaurant)
+        {
+            ShowDrinkMenu();
+
+            Console.Write("Ange bordsnummer: ");
+            if (!int.TryParse(Console.ReadLine(), out int tableNumber))
+            {
+                Console.WriteLine("Felaktigt bordnummer.");
+                return;
+            }
+
+            Console.WriteLine("\nSkriv numret på drycken för att lägga till i beställningen (0 för att avsluta):");
+            while (true)
+            {
+                Console.Write("Val: ");
+                if (!int.TryParse(Console.ReadLine(), out int choice))
+                {
+                    Console.WriteLine("Felaktig inmatning, försök igen.");
+                    continue;
+                }
+
+                if (choice == 0) break;
+
+                if (choice > 0 && choice <= Drinks.DrinkList.Count)
+                {
+                    var selectedDrink = Drinks.DrinkList[choice - 1];
+                    restaurant.AddOrderToTable(tableNumber, selectedDrink);
+                    Console.WriteLine($"Tillagd på bord {tableNumber}: {selectedDrink.Name}");
+                }
+                else
+                {
+                    Console.WriteLine("Fel: valet finns inte i menyn.");
+                }
+            }
+        }
+        public static void BothMenus()
+        {
+            Console.WriteLine("1) Mat.");
+            Console.WriteLine("2) Dryck.");
+            Console.WriteLine("3) Återgå.");
+            string input = Console.ReadLine();
+            int choice;
+            if (int.TryParse(input, out choice))
+            {
+                switch (choice)
+                {
+                    case 1:
+                        ShowFoodMenu();
+                        break;
+                    case 2:
+                        ShowDrinkMenu();
+                        break;
+                    case 3:
+
+                        break;
                 }
             }
         }
