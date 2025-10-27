@@ -19,6 +19,8 @@ namespace Restaurant_Take_A_SUT
             return;
          }
          Console.WriteLine("Dagens avlsut:\n");
+         int totalSales = 0;
+         List<PaymentSum> zRapport = new List<PaymentSum>();
 
          foreach(var order in completedOrders)
          {
@@ -34,7 +36,35 @@ namespace Restaurant_Take_A_SUT
 
             Console.WriteLine($"Totalt: {order.Total} kr");
             Console.WriteLine(new string('-', 30));
+            totalSales += order.Total;
+            PaymentSum existing = null;
+
+            foreach(var sum in zRapport)
+            {
+               if(sum.Method == order.PaymentMethod)
+               {
+                  existing = sum;
+                  break;
+               }
+            }
+
+            if(existing != null)
+            {
+               existing.Total += order.Total;
+            } else
+            {
+               zRapport.Add(new PaymentSum(order.PaymentMethod, order.Total));
+            }
+
+
          }
+            Console.WriteLine("\n== Sammanställning ==");
+            Console.WriteLine($"Total försäljning: {totalSales} kr");
+
+            foreach (var summary in zRapport)
+            {
+               Console.WriteLine($"{summary.Method,-10}: {summary.Total} kr");
+            }
       }
 
 
