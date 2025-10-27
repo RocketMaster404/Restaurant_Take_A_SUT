@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -55,7 +56,7 @@ namespace Restaurant_Take_A_SUT
                         restaurant.ShowSpecificTable();
                         break;
                     case 2:
-                        BothMenus();
+                        BothMenus(restaurant);
                         break;
                     case 3:
                         //Print nota;
@@ -84,15 +85,12 @@ namespace Restaurant_Take_A_SUT
         }
         public static void OrderFood(Restaurant restaurant)
         {
-            ShowFoodMenu();
-
             Console.Write("Ange bordsnummer: ");
             if (!int.TryParse(Console.ReadLine(), out int tableNumber))
             {
                 Console.WriteLine("Felaktigt bordnummer.");
                 return;
             }
-
             Console.WriteLine("\nSkriv numret på maträtten för att lägga till i beställningen (0 för att avsluta):");
             while (true)
             {
@@ -102,7 +100,6 @@ namespace Restaurant_Take_A_SUT
                     Console.WriteLine("Felaktig inmatning, försök igen.");
                     continue;
                 }
-
                 if (choice == 0) break;
 
                 if (choice > 0 && choice <= Food.Foodmenu.Count)
@@ -119,15 +116,12 @@ namespace Restaurant_Take_A_SUT
         }
         public static void OrderDrinks(Restaurant restaurant)
         {
-            ShowDrinkMenu();
-
             Console.Write("Ange bordsnummer: ");
             if (!int.TryParse(Console.ReadLine(), out int tableNumber))
             {
                 Console.WriteLine("Felaktigt bordnummer.");
                 return;
             }
-
             Console.WriteLine("\nSkriv numret på drycken för att lägga till i beställningen (0 för att avsluta):");
             while (true)
             {
@@ -137,7 +131,6 @@ namespace Restaurant_Take_A_SUT
                     Console.WriteLine("Felaktig inmatning, försök igen.");
                     continue;
                 }
-
                 if (choice == 0) break;
 
                 if (choice > 0 && choice <= Drinks.DrinkList.Count)
@@ -152,26 +145,33 @@ namespace Restaurant_Take_A_SUT
                 }
             }
         }
-        public static void BothMenus()
+        public static void BothMenus(Restaurant restaurant)
         {
-            Console.WriteLine("1) Mat.");
-            Console.WriteLine("2) Dryck.");
-            Console.WriteLine("3) Återgå.");
-            string input = Console.ReadLine();
-            int choice;
-            if (int.TryParse(input, out choice))
+            bool running = true;
+            while (running)
             {
-                switch (choice)
+                Console.Clear();
+                Console.WriteLine("1) Mat.");
+                Console.WriteLine("2) Dryck.");
+                Console.WriteLine("3) Återgå.");
+                string input = Console.ReadLine();
+                int choice;
+                if (int.TryParse(input, out choice))
                 {
-                    case 1:
-                        ShowFoodMenu();
-                        break;
-                    case 2:
-                        ShowDrinkMenu();
-                        break;
-                    case 3:
-
-                        break;
+                    switch (choice)
+                    {
+                        case 1:
+                            ShowFoodMenu();
+                            OrderFood(restaurant);
+                            break;
+                        case 2:
+                            ShowDrinkMenu();
+                            OrderDrinks(restaurant);
+                            break;
+                        case 3:
+                            running = false;
+                            break;
+                    }
                 }
             }
         }

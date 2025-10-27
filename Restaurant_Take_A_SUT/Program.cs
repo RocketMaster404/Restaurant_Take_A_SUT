@@ -6,14 +6,14 @@
         {
             var restaurant = new Restaurant(10);
             BuildMenu();
-            if (User.LogIn())
-            {
                 while (true)
                 {
                     Inteface.PrintMenu(restaurant);
                     Console.ReadKey();
                 }
-            }
+            //if (User.LogIn())
+            //{
+            //}
         }
         public static void BuildMenu()
         {
