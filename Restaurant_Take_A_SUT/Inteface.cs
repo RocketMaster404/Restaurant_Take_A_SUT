@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -87,7 +88,7 @@ namespace Restaurant_Take_A_SUT
                         restaurant.ShowSpecificTable();
                         break;
                     case 2:
-                        OrderFood(restaurant);
+                        BothMenus(restaurant);
                         break;
                     case 3:
                         RemoveOrderMenu(restaurant);
@@ -116,15 +117,12 @@ namespace Restaurant_Take_A_SUT
         }
         public static void OrderFood(Restaurant restaurant)
         {
-            ShowFoodMenu();
-
             Console.Write("Ange bordsnummer: ");
             if (!int.TryParse(Console.ReadLine(), out int tableNumber))
             {
                 Console.WriteLine("Felaktigt bordnummer.");
                 return;
             }
-
             Console.WriteLine("\nSkriv numret på maträtten för att lägga till i beställningen (0 för att avsluta):");
             while (true)
             {
@@ -134,7 +132,6 @@ namespace Restaurant_Take_A_SUT
                     Console.WriteLine("Felaktig inmatning, försök igen.");
                     continue;
                 }
-
                 if (choice == 0) break;
 
                 if (choice > 0 && choice <= Food.Foodmenu.Count)
@@ -142,6 +139,37 @@ namespace Restaurant_Take_A_SUT
                     var selectedFood = Food.Foodmenu[choice - 1];
                     restaurant.AddOrderToTable(tableNumber, selectedFood);
                     Console.WriteLine($"Tillagd på bord {tableNumber}: {selectedFood.Name}");
+                }
+                else
+                {
+                    Console.WriteLine("Fel: valet finns inte i menyn.");
+                }
+            }
+        }
+        public static void OrderDrinks(Restaurant restaurant)
+        {
+            Console.Write("Ange bordsnummer: ");
+            if (!int.TryParse(Console.ReadLine(), out int tableNumber))
+            {
+                Console.WriteLine("Felaktigt bordnummer.");
+                return;
+            }
+            Console.WriteLine("\nSkriv numret på drycken för att lägga till i beställningen (0 för att avsluta):");
+            while (true)
+            {
+                Console.Write("Val: ");
+                if (!int.TryParse(Console.ReadLine(), out int choice))
+                {
+                    Console.WriteLine("Felaktig inmatning, försök igen.");
+                    continue;
+                }
+                if (choice == 0) break;
+
+                if (choice > 0 && choice <= Drinks.DrinkList.Count)
+                {
+                    var selectedDrink = Drinks.DrinkList[choice - 1];
+                    restaurant.AddOrderToTable(tableNumber, selectedDrink);
+                    Console.WriteLine($"Tillagd på bord {tableNumber}: {selectedDrink.Name}");
                 }
                 else
                 {
@@ -177,6 +205,36 @@ namespace Restaurant_Take_A_SUT
             table.Orders.RemoveAt(choice - 1);
             Console.WriteLine($"{removedItem.Name} tagits bort från bord {tableNumber}.");
             Console.ReadKey();
+        }
+        public static void BothMenus(Restaurant restaurant)
+        {
+            bool running = true;
+            while (running)
+            {
+                Console.Clear();
+                Console.WriteLine("1) Mat.");
+                Console.WriteLine("2) Dryck.");
+                Console.WriteLine("3) Återgå.");
+                string input = Console.ReadLine();
+                int choice;
+                if (int.TryParse(input, out choice))
+                {
+                    switch (choice)
+                    {
+                        case 1:
+                            ShowFoodMenu();
+                            OrderFood(restaurant);
+                            break;
+                        case 2:
+                            ShowDrinkMenu();
+                            OrderDrinks(restaurant);
+                            break;
+                        case 3:
+                            running = false;
+                            break;
+                    }
+                }
+            }
         }
         public static void LogOut()
         {
