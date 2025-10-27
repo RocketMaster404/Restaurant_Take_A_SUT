@@ -29,7 +29,7 @@ namespace Restaurant_Take_A_SUT
 
             foreach (var item in order.Items)
             {
-               Console.WriteLine($" - {item.Name,-20} {item.Price,5} kr");
+               Console.WriteLine($" - {item.Name,-30} {item.Price,5} kr");
             }
 
             Console.WriteLine($"Totalt: {order.Total} kr");
