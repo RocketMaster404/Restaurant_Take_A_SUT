@@ -11,6 +11,33 @@ namespace Restaurant_Take_A_SUT
 
       public static List<CompletedOrder> completedOrders = new List<CompletedOrder>();
 
+      public static void Z_Rapport()
+      {
+         if(completedOrders.Count == 0)
+         {
+            Console.WriteLine("Inga avslutade ordrar");
+            return;
+         }
+         Console.WriteLine("Dagens avlsut:\n");
+
+         foreach(var order in completedOrders)
+         {
+            Console.WriteLine($"Bord: {order.TableNumber}");
+            Console.WriteLine($"Tid: {order.TimeStamp}");
+            Console.WriteLine($"Betalningsmetod: {order.PaymentMethod}");
+            Console.WriteLine("Beställning:");
+
+            foreach (var item in order.Items)
+            {
+               Console.WriteLine($" - {item.Name,-20} {item.Price,5} kr");
+            }
+
+            Console.WriteLine($"Totalt: {order.Total} kr");
+            Console.WriteLine(new string('-', 30));
+         }
+      }
+
+
       public static void PrintPayMenu()
       {
          Console.WriteLine("1. Kort");
